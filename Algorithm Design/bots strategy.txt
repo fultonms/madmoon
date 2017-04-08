@@ -1,0 +1,21 @@
+bot strategic 
+	push 
+	defend
+	Roshan
+	laning
+		ward
+		rune
+	attack
+	roam
+	item
+		secret shop
+		side shop
+	assemble
+	team roam
+	farm
+		rune
+	
+bot reflex
+	retreat 
+	defend ally
+	evasive manoeuvres
