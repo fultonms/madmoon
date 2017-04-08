@@ -48,7 +48,7 @@ end
 
 function GetDesire()
 	--Before First Rune Spawn
-	if (DotaTime() < 3)
+	if (GetGameState() == GAME_STATE_PRE_GAME)
 	then
 		return BOT_MODE_DESIRE_HIGH;
 	end
@@ -61,10 +61,26 @@ function GetDesire()
 	return Clamp(1 - distance - timeFromSpawn, BOT_MODE_DESIRE_NONE, BOT_MODE_DESIRE_HIGH);
 end
 
+function OnStart()
+
+end
+
+function OnEnd()
+
+end
+
+function Think()
+
+end
+
+
 for k,v in pairs( mode_generic_rune ) do _G.savedEnv[k] = v end
 
 
 BotsInit = require("game/botsinit");
-local my_mode_generic_rune =  BotsInit.CreateGeneric();
-my_mode_generic_rune.GetDesire = GetDesire;
-return my_mode_generic_rune;
+local my_generic_rune =  BotsInit.CreateGeneric();
+my_generic_rune.GetDesire = GetDesire;
+my_generic_rune.OnStart = OnStart;
+my_generic_rune.OnEnd = OnEnd;
+my_generic_rune.Think = Think;
+return my_generic_rune;
