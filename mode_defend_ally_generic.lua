@@ -2,14 +2,28 @@ _G.savedEnv = getfenv()
 module( "mode_generic_defend_ally", package.seeall )
 
 function GetDesire()
+    --Reflex action, so the desire is processed here instead of calling out.
+    --If the action is desired, the desire is set to 1.0 to override strategy actions.
+    bot = GetBot()
+    retAllies = bot:GetNearbyHeroes(1200, false, BOT_MODE_RETREAT)
+    jukeAllies = bot:GetNearbyHeroes(1200, false, BOT_MODE_EVASIVE_MANEUVERS)
+
+
+    -- Bot should also evaluate its capability to help defend to avoid feeding
+    if (#retAllies > 0) or (#jukeAllies > 0) then
+        return BOT_MODE_DESIRE_ABSOLUTE
+    else
+        return BOT_MODE_DESIRE_NONE
 
 end
 
 function OnStart()
+    print("Bot entering mode: Retreat")
 
 end
 
 function OnEnd()
+    print("Bot exiting mode: Retreat")
 
 end
 
