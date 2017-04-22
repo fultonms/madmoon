@@ -5,7 +5,7 @@ bot strategic
 	laning
 		ward
 		rune
-	attack
+		attack
 	roam
 	item
 		secret shop
