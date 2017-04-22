@@ -19,3 +19,12 @@ bot reflex
 	retreat 
 	defend ally
 	evasive manoeuvres
+	
+enemies can be in 7 different modes
+	push
+	defend
+	Roshan
+	laning
+	roam
+	assemble
+	team roam
