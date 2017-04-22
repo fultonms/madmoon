@@ -1,4 +1,4 @@
-[logo]: http://wiki.teamliquid.net/commons/images/6/62/Archronicus_Mad_Moon.png "Mad Moon Logo"
+![Mad Moon Logo](http://wiki.teamliquid.net/commons/images/6/62/Archronicus_Mad_Moon.png)
 
 
 # madmoon
