@@ -1,6 +1,6 @@
 _G.savedEnv = getfenv()
 module( "mode_generic_evasive_maneuvers", package.seeall )
-tTresh = 1.0
+tThresh = 1.0
 
 function GetDesire()
     --Reflex action, so the desire is processed here instead of calling out.
@@ -10,14 +10,16 @@ function GetDesire()
     maxHP = bot:GetMaxHealth()
     perHP = (curHP / maxHP) * 100
 
+    
+
     recDamage = bot:WasRecentlyDamagedByAnyHero(tThresh)
-    nearHeroes = bot:GetNeabyHeroes(1200, true, BOT_MODE_NONE)
+    nearHeroes = bot:GetNearbyHeroes(1200, true, BOT_MODE_NONE)
 
     if (perHP < 10) and (recDamage) and (#nearHeroes > 1) then
         return BOT_MODE_DESIRE_ABSOLUTE
-    else if (perHP < 10) and (recDamage) and (#nearHeroes > 0) then
+    elseif (perHP < 10) and (recDamage) and (#nearHeroes > 0) then
         return BOT_MODE_DESIRE_ABSOLUTE - 0.05
-    else if (perHP < 10) and (recDamage) then
+    elseif (perHP < 10) and (recDamage) then
         return BOT_MODE_DESIRE_VERY_HIGH
     else 
         return BOT_MODE_DESIRE_NONE

@@ -6,7 +6,7 @@ function GetDesire()
     --If the action is desired, the desire is set to 1.0 to override strategy actions.
     bot = GetBot()
     power = bot:GetOffensivePower()
-    enemies = bot:GetNearbyHeroes(bot:GetCurrentVisionRange(), true, BOT_MODE_NONE)
+    enemies = bot:GetNearbyHeroes(1200, true, BOT_MODE_NONE)
 
     vulnerableTargets = {}
     for k, v in pairs(enemies) do

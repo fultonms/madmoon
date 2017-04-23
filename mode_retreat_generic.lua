@@ -11,15 +11,15 @@ function GetDesire()
 
     curMP = bot:GetMana()
     maxMP = bot:GetMaxMana()
-    perMP = (cur / maxMP) * 100
+    perMP = (curMP / maxMP) * 100
 
     if (perHP < 10) and (perMP < 5) then
         return BOT_MODE_DESIRE_ABSOLUTE - 0.05
-    else if perHP < 10 then
+    elseif perHP < 10 then
         return BOT_MODE_DESIRE_VERY_HIGH - 0.05
     else
         return BOT_MODE_DESIRE_NONE
-
+    end
 end
 
 function OnStart()
