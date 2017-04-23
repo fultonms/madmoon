@@ -27,12 +27,10 @@ end
 
 function OnStart()
     print("Bot entering mode: Attack")
-
 end
 
 function OnEnd()
     print("Bot exiting mode: Attack")
-
 end
 
 function Think()
