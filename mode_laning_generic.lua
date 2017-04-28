@@ -39,54 +39,68 @@ end
 
 function Think()
     if role == 0 then 
-
-        laneFront = GetLaneFrontLocation(team, lane, -(bot:GetAttackRange() - 100))
-
-        if GetUnitToLocationDistance(bot, laneFront) > (bot:GetAttackRange() - 100)then
-            bot:Action_MoveToLocation(laneFront)
-        else
-            creeps = bot:GetNearbyCreeps(1200, true)
-
-            lowest = nil
-            for k, v in pairs(creeps) do
-                if lowest == nil then
-                    lowest = v
-                elseif(lowest:GetHealth() > v:GetHealth()) then
-                    lowest = v 
+        lastHitAndDeny()
+    elseif role == 1 then
+        if not pull() then
+            if not stack() then
+                if not harrass() then
+                    lastHitAndDeny
                 end
-            end 
-
-            -- Should add range from lane front and general agro avoidance.
-            if lowest ~= nill then 
-                closeEnough = (bot:GetAttackRange() >=  GetUnitToUnitDistance(bot, lowest))
-                killable = (lowest:GetHealth() <= bot:GetAttackRange())
-
-                if closeEnough and killable then
-                    bot:Action_AttackUnit(lowest, false)
-                elseif not closeEnough then
-                    bot:Action_MoveToUnit(lowest)
-                --elseif not killable then 
-                  --  bot:Action_ClearActions(false)
-                else 
-                    return nil
-                end 
             end
         end
-
-    elseif role == 1 then
-        wards = GetUnitList(UNIT_LIST_ALLIED_WARDS)
-        --if #wards < 2 then
-            --consider warding
-        
-        --consider pulling
-        --consider stacking 
-        --consider harrasing
-        --consider denying
-        --consider last hitting 
     else
         -- call generic roaming?
     end 
 
+end
+
+function lastHitAndDeny()
+    laneFront = GetLaneFrontLocation(team, lane, -(bot:GetAttackRange() - 100))
+
+    if GetUnitToLocationDistance(bot, laneFront) > (bot:GetAttackRange() - 100)then
+        bot:Action_MoveToLocation(laneFront)
+    else
+        creeps = bot:GetNearbyCreeps(1200, true)
+
+        lowest = nil
+        for k, v in pairs(creeps) do
+            if lowest == nil then
+                lowest = v
+            elseif(lowest:GetHealth() > v:GetHealth()) then
+                lowest = v 
+            end
+        end 
+
+        -- Should add range from lane front and general agro avoidance.
+        if lowest ~= nill then 
+            closeEnough = (bot:GetAttackRange() >=  GetUnitToUnitDistance(bot, lowest))
+            killable = (lowest:GetHealth() < bot:GetAttackDamage())
+
+            if closeEnough and killable then
+                bot:Action_AttackUnit(lowest, false)
+            elseif not closeEnough then
+                bot:Action_MoveToUnit(lowest)
+            elseif not killable then 
+                bot:Action_ClearActions(false)
+            else 
+                return false
+            end 
+        end
+    end
+    return true
+
+end
+
+function pull()
+    return false
+end
+
+function stack()
+    return false
+end
+
+function harrass()
+    return false
 end
 
 for k,v in pairs( mode_generic_laning ) do _G.savedEnv[k] = v end
