@@ -16,7 +16,7 @@ function GetDesire()
     if (perHP < 10) and (perMP < 5) then
         return BOT_MODE_DESIRE_ABSOLUTE - 0.05
     elseif perHP < 10 then
-        return BOT_MODE_DESIRE_VERY_HIGH - 0.05
+        return BOT_MODE_DESIRE_VERYHIGH - 0.05
     else
         return BOT_MODE_DESIRE_NONE
     end
