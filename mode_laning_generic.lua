@@ -44,7 +44,7 @@ function Think()
         if not pull() then
             if not stack() then
                 if not harrass() then
-                    lastHitAndDeny
+                    lastHitAndDeny()
                 end
             end
         end
@@ -55,12 +55,13 @@ function Think()
 end
 
 function lastHitAndDeny()
-    laneFront = GetLaneFrontLocation(team, lane, -(bot:GetAttackRange() - 100))
+    laneFront = GetLaneFrontLocation(team, lane, -(bot:GetAttackRange()))
 
-    if GetUnitToLocationDistance(bot, laneFront) > (bot:GetAttackRange() - 100)then
+    if GetUnitToLocationDistance(bot, laneFront) > (bot:GetAttackRange())then
         bot:Action_MoveToLocation(laneFront)
     else
         creeps = bot:GetNearbyCreeps(1200, true)
+        croops = bot:GetNearbyCreeps(1200, false)
 
         lowest = nil
         for k, v in pairs(creeps) do
@@ -74,14 +75,14 @@ function lastHitAndDeny()
         -- Should add range from lane front and general agro avoidance.
         if lowest ~= nill then 
             closeEnough = (bot:GetAttackRange() >=  GetUnitToUnitDistance(bot, lowest))
-            killable = (lowest:GetHealth() < bot:GetAttackDamage())
+            killable = (lowest:GetHealth() < (bot:GetAttackDamage() * 1.5))
 
             if closeEnough and killable then
                 bot:Action_AttackUnit(lowest, false)
             elseif not closeEnough then
                 bot:Action_MoveToUnit(lowest)
             elseif not killable then 
-                bot:Action_ClearActions(false)
+                return false
             else 
                 return false
             end 
